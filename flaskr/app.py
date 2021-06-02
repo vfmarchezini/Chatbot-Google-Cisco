@@ -49,11 +49,10 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
 
         for message in messages:
             msg_to_send = str(Intent().Message(message).text.text)
+            print(type(msg_to_send))
             #print(Message().SerializeToString(message.text))
             #print(type(Message().SerializeToString(message.text.text)))
             socketio.emit('send_msg_to_customer', msg_to_send)
-
-        #messages = MessageToJson(response)._pb
         #print(messages)
 
 
