@@ -3,6 +3,7 @@ var socket;
 var customer;
 var xferred = false;
 var transcript = "";
+var closed = false;
 
 window.onload = function(){
     document.getElementById('customer-properties-form').onsubmit = function(e){  
@@ -50,17 +51,29 @@ window.onload = function(){
         customer.AddCustomerParameter(customer_email);
         customer.AddCustomerParameter(customer_fst_lst_name);
         //Add config file for production
-        //socket = io.connect("http://127.0.0.1:5000");
-        socket = io.connect("https://f1efeafcd268.ngrok.io");
+        socket = io.connect(localserver);
 
         socket.on('connect', function(){
+            $("#customer-properties").empty();
+            $("<button class='close_cl' id='btn_close'>Encerrar</button>").appendTo("#customer-properties");
+
+            $("#btn_close").on("click", function(){
+                socket.close();
+                endChat();
+                location.reload();
+            });
+            
             $('#txt_input_cl').blur();
-            $('#message-div').remove();
+            //$('#message-div').remove();
+
+            let d = new Date();
+            var time = d.toLocaleTimeString([],{hour:'2-digit', minute:'2-digit'});
 
             $("<div id='agent' class='agent'></div>").appendTo('#div_chat_body')
             $("<img src='../static/energisa.png' alt='Energisa'>").appendTo("#agent");
             $("<p>Seja Bem-Vindo ao Chat da Energisa</p>").appendTo("#agent");
-            $("<span class='time-right'>"+new Date().getHours()+":"+new Date().getMinutes()+"</span>").appendTo("#agent");
+            $("<span class='time-right'>"+time+"</span>").appendTo("#agent");
+            socket.emit('send_msg_to_bot', {msg: 'Oi'});
         
             let message_input = document.getElementById('txt_input');
         
@@ -69,8 +82,7 @@ window.onload = function(){
                 let message = message_input.value.trim();
         
                 let d = new Date();
-                let h = d.getHours();
-                let m = d.getMinutes();
+                var time = d.toLocaleTimeString([],{hour:'2-digit', minute:'2-digit'});
                 
                 if(!xferred){
                     if(message.length){
@@ -84,7 +96,7 @@ window.onload = function(){
                         $("<div id="+div_plus_id+" class='customer'></div>").appendTo('#div_chat_body')
                         $("<img src='../static/customer.png' alt='Cliente'>").appendTo("#customer"+_id_for_div+"");
                         $("<p>"+message+"</p>").appendTo("#customer"+_id_for_div+"");
-                        $("<span class='time-left'>"+h+":"+m+"</span>").appendTo("#customer"+_id_for_div+"");
+                        $("<span class='time-left'>"+time+"</span>").appendTo("#customer"+_id_for_div+"");
                         $('#div_chat_body').get(0).scrollIntoView({behavior: "smooth", block:"end", inline: "nearest"});
                         transcript = transcript +"\n" + $("#txt_firstname").val()+": " + message;
                     }
@@ -97,7 +109,7 @@ window.onload = function(){
                         $("<div id="+div_plus_id+" class='customer'></div>").appendTo('#div_chat_body')
                         $("<img src='../static/customer.png' alt='Cliente'>").appendTo("#customer"+_id_for_div+"");
                         $("<p>"+message+"</p>").appendTo("#customer"+_id_for_div+"");
-                        $("<span class='time-left'>"+h+":"+m+"</span>").appendTo("#customer"+_id_for_div+"");
+                        $("<span class='time-left'>"+time+"</span>").appendTo("#customer"+_id_for_div+"");
                         $('#div_chat_body').get(0).scrollIntoView({behavior: "smooth", block:"end", inline: "nearest"});
                 }
                 message_input.value='';
@@ -107,8 +119,7 @@ window.onload = function(){
         
         socket.on('send_msg_to_customer', function (data) {
             let d = new Date();
-            let h = d.getHours();
-            let m = d.getMinutes();
+            var time = d.toLocaleTimeString([],{hour:'2-digit', minute:'2-digit'});
         
             _id_for_div++;
             let div_plus_id = "'agent"+_id_for_div+"'";
@@ -116,7 +127,7 @@ window.onload = function(){
             $("<div id="+div_plus_id+" class='agent'></div>").appendTo('#div_chat_body')
             $("<img src='../static/energisa.png' alt='Cliente'>").appendTo("#agent"+_id_for_div+"");
             $("<p>"+data+"</p>").appendTo("#agent"+_id_for_div+"");
-            $("<span class='time-right'>"+h+":"+m+"</span>").appendTo("#agent"+_id_for_div+"");
+            $("<span class='time-right'>"+time+"</span>").appendTo("#agent"+_id_for_div+"");
             $('#div_chat_body').get(0).scrollIntoView({behavior: "smooth", block:"end", inline: "nearest"});
             transcript = transcript +"\n BOT: "+ data;
         });
@@ -133,8 +144,7 @@ window.onload = function(){
 function from_ag_send_to_customer(message)
 {
     let d = new Date();
-    let h = d.getHours();
-    let m = d.getMinutes();
+    var time = d.toLocaleTimeString([],{hour:'2-digit', minute:'2-digit'});
 
     _id_for_div++;
     let div_plus_id = "'agent"+_id_for_div+"'";
@@ -142,6 +152,6 @@ function from_ag_send_to_customer(message)
     $("<div id="+div_plus_id+" class='agent'></div>").appendTo('#div_chat_body')
     $("<img src='../static/energisa.png' alt='Cliente'>").appendTo("#agent"+_id_for_div+"");
     $("<p>"+message+"</p>").appendTo("#agent"+_id_for_div+"");
-    $("<span class='time-right'>"+h+":"+m+"</span>").appendTo("#agent"+_id_for_div+"");
+    $("<span class='time-right'>"+time+"</span>").appendTo("#agent"+_id_for_div+"");
     $('#div_chat_body').get(0).scrollIntoView({behavior: "smooth", block:"end", inline: "nearest"});
 }

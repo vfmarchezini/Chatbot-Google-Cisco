@@ -35,7 +35,7 @@
 
 .customer-properties{
     top: 0;
-    position: relative;
+    position: fixed;
     background-color: #cacacad7;
     margin-top: auto;
     width: 100%;
@@ -81,6 +81,21 @@
 
 .submit_cl:hover{
     background-color: #45a049;
+}
+
+.close_cl{
+    background-color:#f44336;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.close_cl:hover{
+    background-color: #cc0000;
 }
 
 /*Clear floats*/

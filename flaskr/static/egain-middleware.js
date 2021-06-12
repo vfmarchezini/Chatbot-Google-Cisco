@@ -1,6 +1,6 @@
 var myLibrarySettings = new eGainLibrarySettings();
 //myLibrarySettings.CORSHost = 'http://198.18.135.29/system';
-myLibrarySettings.CORSHost = 'http://0b08fe1bb73f.ngrok.io/system'
+myLibrarySettings.CORSHost = eceserver;
 myLibrarySettings.IsDevelopmentModeOn = false;
 myLibrarySettings.eGainContextPath = '/static/';
 //myLibrarySettings.ChatPauseInSec = '30'
@@ -44,10 +44,11 @@ function egain_transfer(incomingMessage){
 
     myEventHandlers.OnConnectionComplete = function(){
         console.log("Completed");
+        location.reload();
     };
 
     myEventHandlers.OnErrorOccurred = function(chatErrorOccurredEventArgs){
-        alert(chatErrorOccurredEventArgs.toString());
+        console.log(chatErrorOccurredEventArgs)
     };
 
     myEventHandlers.OnAgentJoined = function(AgentJoinedEventArgs){
@@ -59,4 +60,9 @@ function egain_transfer(incomingMessage){
 function sendMessageToEgainAgent(message)
 {
         myChat.SendMessageToAgent(message); 
+}
+
+function endChat()
+{
+    myChat.End();
 }

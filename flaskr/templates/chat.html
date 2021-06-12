@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
     <meta name="HandheldFriendly" content="true">
     <link rel="stylesheet" href="../static/styles.css">
     <title>Gisa Chat</title>
+    <script src="../static/vars.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="../static/egain-client-library.0.0.25.min.js"></script>
@@ -19,7 +20,7 @@
             <input type="text" id="txt_firstname"class="customer-properties-fields" placeholder="Nome">
             <input type="text" id="txt_lastname" class="customer-properties-fields" placeholder="Sobrenome">
             <input type="email" id="txt_email" class="customer-properties-fields" placeholder="E-mail">
-            <button class="submit_cl" type="submit">Entrar</button>
+            <button class="submit_cl" type="submit" id="btn_login">Entrar</button>
         </form>
     </div>
     <div id="div_chat_body" class="chat-body"></div>
