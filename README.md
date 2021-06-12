@@ -52,7 +52,7 @@ ngrok.exe http --region=sa --hostname=localserver.sa.ngrok.io <Flask PORT> e.g. 
 
 Running the project
 Copy the "flaskr" folder inside TestProject-master to C:\Projects\Python\DialogFlow
-  You should have to folders: energisaenv and flaskr
+  You should have two folders: energisaenv and flaskr
 Open flaskr
 Run python<version> app.py
 
