@@ -57,6 +57,8 @@ window.onload = function(){
             $("#customer-properties").empty();
             $("<button class='close_cl' id='btn_close'>Encerrar</button>").appendTo("#customer-properties");
 
+            $("#message_div").css("visibility", "visible");
+
             $("#btn_close").on("click", function(){
                 socket.close();
                 endChat();

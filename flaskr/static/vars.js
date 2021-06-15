@@ -1,2 +1,2 @@
-var localserver = "http://localserver.sa.ngrok.io";
-var eceserver = "http://eceserver.ngrok.io/system";
+var localserver = "https://localserver.sa.ngrok.io";
+var eceserver = "https://eceserver.ngrok.io/system";
